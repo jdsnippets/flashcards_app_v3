@@ -1,0 +1,227 @@
+#+STARTUP: indent          # note: to disable -> "noindent" or M-x org-indent-mode
+#+OPTIONS: toc:2
+
+
+* misc notes
+** jds
+-> current status in chat: ...
+** chat
+*** flashcard project (v3)
+-> https://chatgpt.com/c/6832011f-bc04-8013-9fe3-7f1c3f033e8b
+*** 
+
+
+
+
+
+* getting started
+
+
+      # ================ UV "global" setup STUFF =================
+      uv self update              # success: Upgraded uv from v0.7.6 to v0.7.8! https://github.com/astral-sh/uv/releases/tag/0.7.8
+      uv python install 3.13
+      uv python pin 3.13
+      
+      uv init flashcards_app_v3
+      cd flashcards_app_v3
+
+      
+      # ================ local GIT STUFF =================
+      # check...
+      git config --global user.name               # neuroskipper
+      git config --global user.email              # neuroskipper@gmail.com
+
+      # config for this repo
+      git config user.name "jdsnippets"
+      git config user.email jds.software@gmail.com
+      git config user.name                        # jdsnippets
+      git config user.email                       # jds.software@gmail.com
+  
+      cat .git/config
+         [core]
+                 repositoryformatversion = 0
+                 filemode = true
+                 bare = false
+                 logallrefupdates = true
+                 ignorecase = true
+                 precomposeunicode = true
+         [user]
+                 name = jdsnippets
+                 email = jds.software@gmail.com
+  
+  
+      
+      # ================ UV project setup STUFF =================
+      uv venv .venv --python 3.13
+      source .venv/bin/activate
+      python --version
+  
+      uv add fastapi uvicorn pillow python-multipart sqlalchemy aiosqlite
+      uv lock
+
+      # create the first version of all dirs & files for the project (backend/... frontend/...)
+      
+      uv add --editable . --dev
+      uv sync
+  
+  
+      cat pyproject.toml 
+         [project]
+         name = "flashcards-app-v3"
+         version = "0.1.0"
+         description = "Add your description here"
+         readme = "README.md"
+         requires-python = ">=3.13"
+         dependencies = [
+             "aiosqlite>=0.21.0",
+             "fastapi>=0.115.12",
+             "pillow>=11.2.1",
+             "python-multipart>=0.0.20",
+             "sqlalchemy>=2.0.41",
+             "uvicorn>=0.34.2",
+         ]
+         
+         [dependency-groups]
+         dev = [
+             "flashcards-app-v3",
+         ]
+         
+         [tool.uv.sources]
+         flashcards-app-v3 = { workspace = true }
+                     
+
+      # test
+      uv run uvicorn backend.main:app --reload --reload-exclude .venv
+
+
+      git add .
+      git commit -m "Initial commit: scaffold project, add backend/frontend/db/scripts"
+         # ...  21 files changed, 741 insertions(+)
+      
+
+      # Create Remote GitHub Repo
+           Go to https://github.com/new
+           Name: flashcards_app_v3
+           Description: FastAPI-based flashcard app with uv and SQLite
+           Do not add a README, .gitignore, or license (you already have them)
+
+          
+      # connect and push
+
+          # don't do this...
+          #    git remote add origin https://github.com/jdsnippets/flashcards_app_v3.git
+          #    since we'd be using HTTPS as the protocol scheme
+
+          # instead, to use ssh, use the command shown below (git remote add origin git@github.com ...)
+          #    best for day-to-day dev and pushing code
+          git remote add origin git@github.com:jdsnippets/flashcards_app_v3.git
+          git branch -M main
+
+
+          # =================== ssh key: START =======================
+          # do the following "once" (for this first git repo,
+          # ...and afterwards it'll be all set for subsequent project
+          ssh-keygen -t ed25519 -C "jds.software@gmail.com"
+            # -> pass phrase:  c....#.S..
+            #    this creates:
+            #      ~/.ssh/id_ed25519      <- private key (keep secure)
+            #      ~/.ssh/id_ed25519.pub  <- public key (you upload this to GitHub)
+          cat ~/.ssh/id_ed25519.pub
+            # -> copy the full contents (starts with ssh-ed25519...) and...
+            # -> Go to: https://github.com/settings/keys
+            # -> Click "New SSH key"
+            # -> Paste the key
+            # -> Give it a title like "jds_macbookair"
+
+          # =================== ssh key: END =======================
+
+
+          # and finally .... push to github!
+          git push -u origin main
+          
+      # 
+      # 
+
+      
+* populate db with some data
+  - chmod +x db_dummy_populate_v2.sh
+    ./db_dummy_populate_v2.sh 
+
+    # confirm
+    sqlite3 flash.db
+    select * from cards;
+
+
+  - cat db_dummy_populate_v2.sh 
+
+       #!/bin/zsh
+       
+       # --- Define capital city flashcards -------------------------
+       typeset -A capitals
+       capitals=(
+         France Paris
+         Germany Berlin
+         Spain Madrid
+         Italy Rome
+         Canada "Ottawa"
+         Mexico "Mexico City"
+         Japan Tokyo
+         Australia Canberra
+         Brazil "Brasília"
+         Kenya Nairobi
+       )
+       
+       # --- Loop over each country and create a card ---------------
+       for country in ${(k)capitals}; do
+         capital=${capitals[$country]}
+       
+         # Only proceed if both country and capital are non-empty
+         if [[ -n $country && -n $capital ]]; then
+           curl -s -X POST http://127.0.0.1:8000/api/cards \
+             -F front_type=text \
+             -F back_type=text \
+             -F front_text="What is the capital of $country?" \
+             -F back_text="$capital" \
+             -F tags=geo > /dev/null
+       
+           echo "added: $country"
+         fi
+       done
+
+
+
+
+** misc notes
+*** 
+*** 
+*** 
+
+** section 1.1
+*** section 1.1.1
+
+** section 1.2
+*** section 1.2.1
+
+* section 2
+** misc notes
+*** 
+*** 
+*** 
+
+** section 2.1
+*** section 2.1.1
+
+** section 2.2
+*** section 2.2.1
+
+* section 3
+** misc notes
+*** 
+*** 
+*** 
+
+** section 3.1
+*** section 3.1.1
+
+** section 3.2
+*** section 3.2.1

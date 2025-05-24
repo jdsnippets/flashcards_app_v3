@@ -1,0 +1,22 @@
+[project]
+name = "flashcards-app-v3"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiosqlite>=0.21.0",
+    "fastapi>=0.115.12",
+    "pillow>=11.2.1",
+    "python-multipart>=0.0.20",
+    "sqlalchemy>=2.0.41",
+    "uvicorn>=0.34.2",
+]
+
+[dependency-groups]
+dev = [
+    "flashcards-app-v3",
+]
+
+[tool.uv.sources]
+flashcards-app-v3 = { workspace = true }
