@@ -65,7 +65,20 @@ async def create_card(
         session.add(CardTag(card_id=card.id, tag_id=tag.id))
 
     await session.commit()
-    await session.refresh(card)
+    #--tbdeleted--|await session.refresh(card)
+    #--fix: ok--|await session.refresh(card, attribute_names=["sides", "tags"])
+    
+    # Reload with relationships to avoid lazy loading issues
+    card = (
+        await session.execute(
+            select(Card)
+            .options(
+                selectinload(Card.sides),
+                selectinload(Card.tags)
+            )
+            .where(Card.id == card.id)
+        )
+    ).scalar_one()
 
     return CardRead(
         id=card.id,

@@ -10,7 +10,9 @@ document.getElementById("loadBtn").addEventListener("click", async () => {
   const url = new URL(`${API}/cards`);
   url.searchParams.set("tags", tag);
   url.searchParams.set("mode", "any");
-  url.searchParams.set("due_only", "true");
+  //--not yet--|url.searchParams.set("due_only", "true");
+  url.searchParams.set("due_only", "false");
+
 
   const res = await fetch(url);
   cards = await res.json();
@@ -98,3 +100,64 @@ function renderSide(side, el) {
       }
     });
 }
+
+document.getElementById("createCardForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const frontText = document.getElementById("frontText").value.trim();
+  const backText = document.getElementById("backText").value.trim();
+  const tagsRaw = document.getElementById("tagsInput").value.trim();
+
+  if (!frontText || !backText) {
+    alert("Front and back text are required.");
+    return;
+  }
+
+  // 1. Upload front text asset
+  const frontForm = new FormData();
+  frontForm.append("type", "text");
+  frontForm.append("file", new Blob([frontText], { type: "text/plain" }), "front.txt");
+  const frontRes = await fetch(`${API}/assets`, {
+    method: "POST",
+    body: frontForm
+  });
+  const frontAsset = await frontRes.json();
+
+  // 2. Upload back text asset
+  const backForm = new FormData();
+  backForm.append("type", "text");
+  backForm.append("file", new Blob([backText], { type: "text/plain" }), "back.txt");
+  const backRes = await fetch(`${API}/assets`, {
+    method: "POST",
+    body: backForm
+  });
+  const backAsset = await backRes.json();
+
+  // 3. Create the card
+  const tags = tagsRaw
+    .split(",")
+    .map(tag => tag.trim())
+    .filter(tag => tag.length > 0);
+
+  const cardPayload = {
+    front_asset_id: frontAsset.id,
+    back_asset_id: backAsset.id,
+    tags
+  };
+
+  const cardRes = await fetch(`${API}/cards`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(cardPayload)
+  });
+
+  if (cardRes.ok) {
+    document.getElementById("createCardForm").reset();
+    document.getElementById("createMsg").classList.remove("hidden");
+    setTimeout(() => {
+      document.getElementById("createMsg").classList.add("hidden");
+    }, 3000);
+  } else {
+    alert("Something went wrong creating the card.");
+  }
+});

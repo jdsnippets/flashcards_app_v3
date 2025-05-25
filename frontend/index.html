@@ -10,21 +10,54 @@
   <header class="bg-white p-4 shadow text-xl font-bold text-center">
     Flashcards App v3
   </header>
-  <main class="flex-1 flex flex-col items-center justify-start p-4 space-y-4">
-    <div class="flex space-x-2">
-      <input id="tagFilter" 
-             type="text" 
-             placeholder="Enter tag (e.g. uv)" 
-             class="border p-2 rounded" />
-      <button id="loadBtn" 
-              class="bg-blue-500 text-white px-4 py-2 rounded">
-        Load Cards
-      </button>
-    </div>
-    <div id="cardContainer" class="w-full max-w-md">
-      <!-- Card will render here -->
-    </div>
+
+  <main class="flex-1 flex flex-col items-center justify-start p-4 space-y-8 w-full max-w-2xl mx-auto">
+
+    <!-- Load Cards by Tag -->
+    <section class="w-full space-y-2">
+      <h2 class="text-lg font-semibold">Practice</h2>
+      <div class="flex space-x-2">
+        <input id="tagFilter" 
+               type="text" 
+               placeholder="Enter tag (e.g. uv)" 
+               class="flex-1 border p-2 rounded" />
+        <button id="loadBtn" 
+                class="bg-blue-500 text-white px-4 py-2 rounded">
+          Load Cards
+        </button>
+      </div>
+      <div id="cardContainer" class="w-full mt-4">
+        <!-- Flashcard will render here -->
+      </div>
+    </section>
+
+    <hr class="w-full border-t border-gray-300" />
+
+    <!-- Create New Card -->
+    <section class="w-full space-y-2">
+      <h2 class="text-lg font-semibold">Create a New Card</h2>
+      <form id="createCardForm" class="space-y-4 bg-white p-4 rounded shadow">
+        <div>
+          <label for="frontText" class="block font-medium">Front (text):</label>
+          <textarea id="frontText" class="w-full p-2 border rounded" rows="2"></textarea>
+        </div>
+        <div>
+          <label for="backText" class="block font-medium">Back (text):</label>
+          <textarea id="backText" class="w-full p-2 border rounded" rows="2"></textarea>
+        </div>
+        <div>
+          <label for="tagsInput" class="block font-medium">Tags (comma-separated):</label>
+          <input id="tagsInput" type="text" class="w-full p-2 border rounded" placeholder="e.g. uv, setup" />
+        </div>
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">
+          Create Card
+        </button>
+        <p id="createMsg" class="text-sm text-green-600 hidden">✅ Card created!</p>
+      </form>
+    </section>
+
   </main>
+
   <script type="module" src="/static/js/app.js"></script>
 </body>
 </html>

@@ -17,7 +17,6 @@
 
 * getting started
 
-
       # ================ UV "global" setup STUFF =================
       uv self update              # success: Upgraded uv from v0.7.6 to v0.7.8! https://github.com/astral-sh/uv/releases/tag/0.7.8
       uv python install 3.13
@@ -156,6 +155,95 @@
 
       
 * populate db with some data
+** some previous content...
+
+
+1|text||How do you apply your lockfile changes to the virtual environment?||2025-05-25 17:48:06.739397
+2|text||uv sync||2025-05-25 17:48:06.740206
+3|text||How do you create a virtual environment using Python 3.13.3?||2025-05-25 17:48:06.744609
+4|text||uv venv .venv --python 3.13.3||2025-05-25 17:48:06.745187
+5|text||How do you add key backend dependencies like FastAPI and SQLite with uv?||2025-05-25 17:48:06.746425
+6|text||uv add fastapi uvicorn pillow python-multipart sqlalchemy aiosqlite||2025-05-25 17:48:06.746790
+7|text||How do you update the uv tool to the latest version?||2025-05-25 17:48:06.747907
+8|text||uv self update||2025-05-25 17:48:06.748245
+9|text||How do you set your project-specific Git username to 'jdsnippets'?||2025-05-25 17:48:06.749390
+10|text||git config user.name "jdsnippets"||2025-05-25 17:48:06.749726
+11|text||How do you run a FastAPI app using uvicorn with auto-reload?||2025-05-25 17:48:06.751029
+12|text||uv run uvicorn backend.main:app --reload --reload-exclude .venv||2025-05-25 17:48:06.751379
+13|text||How do you add the local project in editable mode for development?||2025-05-25 17:48:06.752535
+14|text||uv add --editable . --dev||2025-05-25 17:48:06.752841
+15|text||How do you verify the current Git config file contents?||2025-05-25 17:48:06.753913
+16|text||cat .git/config||2025-05-25 17:48:06.754222
+17|text||What command initializes a new Python project using uv?||2025-05-25 17:48:06.755251
+18|text||uv init <project_name>||2025-05-25 17:48:06.755562
+19|text||How do you activate a uv-created virtual environment?||2025-05-25 17:48:06.756613
+20|text||source .venv/bin/activate||2025-05-25 17:48:06.756976
+21|text||What command sets your global Git username to 'neuroskipper'?||2025-05-25 17:48:06.758072
+22|text||git config --global user.name "neuroskipper"||2025-05-25 17:48:06.758379
+23|text||What command locks your uv dependencies for reproducibility?||2025-05-25 17:48:06.759445
+24|text||uv lock||2025-05-25 17:48:06.759767
+25|text||What command installs Python 3.13.3 using uv?||2025-05-25 17:48:06.760771
+26|text||uv python install 3.13.3||2025-05-25 17:48:06.761076
+
+
+----------
+
+
+new flashcard!
+Q: How do you sync your project dependencies to match your lockfile?
+A: uv sync
+
+new flashcard!
+Q: How do you create a virtual environment using Python 3.13.3 with uv?
+A: uv venv .venv --python 3.13.3
+
+new flashcard!
+Q: How do you install FastAPI and other backend dependencies using uv?
+A: uv add fastapi uvicorn pillow python-multipart sqlalchemy aiosqlite
+
+new flashcard!
+Q: How do you upgrade uv to the latest version?
+A: uv self update
+
+new flashcard!
+Q: How do you set your Git username for this project to jdsnippets?
+A: git config user.name "jdsnippets"
+
+new flashcard!
+Q: How do you run a FastAPI app with uvicorn and auto-reload enabled?
+A: uv run uvicorn backend.main:app --reload --reload-exclude .venv
+
+new flashcard!
+Q: How do you install your local project in editable dev mode using uv?
+A: uv add --editable . --dev
+
+new flashcard!
+Q: How do you inspect the Git configuration for the current project?
+A: cat .git/config
+
+new flashcard!
+Q: How do you initialize a new Python project with uv?
+A: uv init <project_name>
+
+new flashcard!
+Q: How do you activate a uv-created virtual environment?
+A: source .venv/bin/activate
+
+new flashcard!
+Q: How do you set your global Git username to neuroskipper?
+A: git config --global user.name "neuroskipper"
+
+new flashcard!
+Q: How do you lock your project's dependencies with uv for reproducibility?
+A: uv lock
+
+new flashcard!
+Q: How do you install Python 3.13.3 using uv?
+A: uv python install 3.13.3
+
+
+
+** 
   - chmod +x db_dummy_populate_v2.sh
     ./db_dummy_populate_v2.sh 
 

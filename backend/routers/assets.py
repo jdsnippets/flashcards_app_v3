@@ -11,8 +11,11 @@ from datetime import datetime
 
 router = APIRouter(prefix="/assets", tags=["assets"])
 
-UPLOAD_DIR = Path(__file__).parent.parent / "static" / "uploads"
+#--tbdeleted--|UPLOAD_DIR = Path(__file__).parent.parent / "static" / "uploads"
+UPLOAD_DIR = Path(__file__).resolve().parent.parent.parent / "static" / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+STATIC_ROOT = UPLOAD_DIR.parent  # <== points to .../static
 
 class AssetRead(BaseModel):
     id: int
@@ -22,7 +25,10 @@ class AssetRead(BaseModel):
     text: str | None = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+    
+    #--tbdeleted--|class Config:
+    #--tbdeleted--|    orm_mode = True
 
 
 @router.get(
@@ -75,10 +81,17 @@ async def upload_asset(
 
     asset = Asset(
         type=type,
-        path=str(dest.relative_to(Path(__file__).parent.parent / "static")),
+        path=str(dest.relative_to(STATIC_ROOT)),  # this works now
         duration=duration,
         text=text_content,
     )
+        
+    #--tbdeleted--|asset = Asset(
+    #--tbdeleted--|    type=type,
+    #--tbdeleted--|    path=str(dest.relative_to(Path(__file__).parent.parent / "static")),
+    #--tbdeleted--|    duration=duration,
+    #--tbdeleted--|    text=text_content,
+    #--tbdeleted--|)
 
     session.add(asset)
     await session.commit()
