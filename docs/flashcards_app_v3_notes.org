@@ -3,8 +3,9 @@
 
 
 * misc notes
-** jds
--> current status in chat: ...
+** jds: current status in chat...
+-> # (set script_location to 'alembic' and use sqlite+aiosqlite:///flashcards.db)
+
 ** chat
 *** flashcard project (v3)
 -> https://chatgpt.com/c/6832011f-bc04-8013-9fe3-7f1c3f033e8b
@@ -138,7 +139,18 @@
 
           # and finally .... push to github!
           git push -u origin main
+          # post-note: if error (wrong user -> "ERROR: Permission to jdsnippets/flashcards_app_v3.git denied to neuroskipper."
+          git remote set-url origin git@github-jdsnippets:jdsnippets/flashcards_app_v3.git
+          git push -u origin main   # retry
+
           
+      # =================== DB & ALEMBIC INIT/SET UP =======================
+      # migration setup sequence
+      alembic init alembic
+
+      # 
+      # 
+      # 
       # 
       # 
 
