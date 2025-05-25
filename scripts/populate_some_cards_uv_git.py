@@ -1,50 +1,51 @@
 #!/usr/bin/env python3
 """
-scripts/load_sample_data.py
+scripts/populate_some_cards_uv_git.py
 
-Seed the v3 database with sample flashcards from your v2 data.
+Seed the v3 database with sample flashcards (UV/GIT data).
 
 Usage:
-    python3 scripts/load_sample_data.py
-
+    python3 scripts/populate_some_cards_uv_git.py
 Pre-req:
-  • Your virtualenv is active
-  • You've run `alembic upgrade head`
+    • venv active
+    • flashcards.db removed or empty, then `alembic upgrade head`
 """
-import sys
-from pathlib import Path
-import asyncio
-from datetime import datetime
 
-# ensure project root on PYTHONPATH
+import sys
+import asyncio
+from pathlib import Path
+
+# Ensure project root on PYTHONPATH
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.database import get_session
+# Import the async sessionmaker directly
+from backend.database import AsyncSessionLocal
 from backend.models import (
     Asset, AssetType, Card, CardSide, SidePosition, Tag, CardTag
 )
 
-# Legacy flashcards with their tags.
-# If you want dual tags (e.g. both "uv" and "git"), just list both in the "tags" list.
+
+
 cards_data = [
     {
         "question": "How do you apply your lockfile changes to the virtual environment?",
         "answer": "uv sync",
-        "tags": ["setup"],
+        "tags": ["uv"],
     },
     {
         "question": "How do you create a virtual environment using Python 3.13.3?",
         "answer": "uv venv .venv --python 3.13.3",
-        "tags": ["setup"],
+        "tags": ["uv"],
     },
     {
         "question": "How do you add key backend dependencies like FastAPI and SQLite with uv?",
         "answer": "uv add fastapi uvicorn pillow python-multipart sqlalchemy aiosqlite",
-        "tags": ["setup"],
+        "tags": ["uv"],
     },
     {
         "question": "How do you update the uv tool to the latest version?",
@@ -59,12 +60,12 @@ cards_data = [
     {
         "question": "How do you run a FastAPI app using uvicorn with auto-reload?",
         "answer": "uv run uvicorn backend.main:app --reload --reload-exclude .venv",
-        "tags": ["setup"],
+        "tags": ["uv"],
     },
     {
         "question": "How do you add the local project in editable mode for development?",
         "answer": "uv add --editable . --dev",
-        "tags": ["setup"],
+        "tags": ["uv"],
     },
     {
         "question": "How do you verify the current Git config file contents?",
@@ -74,12 +75,12 @@ cards_data = [
     {
         "question": "What command initializes a new Python project using uv?",
         "answer": "uv init <project_name>",
-        "tags": ["setup"],
+        "tags": ["uv"],
     },
     {
         "question": "How do you activate a uv-created virtual environment?",
         "answer": "source .venv/bin/activate",
-        "tags": ["setup"],
+        "tags": ["uv"],
     },
     {
         "question": "What command sets your global Git username to 'neuroskipper'?",
@@ -94,44 +95,50 @@ cards_data = [
     {
         "question": "What command installs Python 3.13.3 using uv?",
         "answer": "uv python install 3.13.3",
-        "tags": ["setup"],
+        "tags": ["uv"],
     },
 ]
 
+#--tbdeleted--|cards_data = [
+#--tbdeleted--|    {"question": "...lockfile changes?", "answer": "uv sync", "tags": ["setup"]},
+#--tbdeleted--|    {"question": "...create venv ...?",   "answer": "uv venv .venv --python 3.13.3", "tags": ["setup"]},
+#--tbdeleted--|    # ... rest of your 13 items ...
+#--tbdeleted--|]
+
 async def load_cards():
-    async with get_session() as session:  # type: AsyncSession
+    # Use the session factory directly
+    async with AsyncSessionLocal() as session:  # type: AsyncSession
         for item in cards_data:
-            # 1. Create front (text) asset
+            # 1) front asset
             front = Asset(type=AssetType.text, text=item["question"])
             session.add(front)
-            await session.flush()  # get front.id
+            await session.flush()
 
-            # 2. Create back (text) asset
+            # 2) back asset
             back = Asset(type=AssetType.text, text=item["answer"])
             session.add(back)
-            await session.flush()   # get back.id
+            await session.flush()
 
-            # 3. Create card record
-            card = Card()  # SM-2 fields default to interval=0, ease_factor=2.5, reps=0
+            # 3) card
+            card = Card()
             session.add(card)
-            await session.flush()   # get card.id
+            await session.flush()
 
-            # 4. Create two sides
+            # 4) sides
             session.add_all([
                 CardSide(card_id=card.id, asset_id=front.id, position=SidePosition.front),
                 CardSide(card_id=card.id, asset_id=back.id,  position=SidePosition.back),
             ])
 
-            # 5. Handle tags (upsert)
-            for tag_name in item["tags"]:
-                name = tag_name.strip().lower()
+            # 5) tags
+            for tname in item["tags"]:
+                name = tname.strip().lower()
                 result = await session.execute(select(Tag).where(Tag.name == name))
                 tag = result.scalar_one_or_none()
                 if not tag:
                     tag = Tag(name=name)
                     session.add(tag)
                     await session.flush()
-                # link card and tag
                 session.add(CardTag(card_id=card.id, tag_id=tag.id))
 
         await session.commit()

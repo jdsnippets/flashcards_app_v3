@@ -6,6 +6,10 @@ from backend.database import Base, engine
 from backend.routers.assets import router as assets_router
 from backend.routers.cards import router as cards_router
 from backend.routers.reviews import router as reviews_router
+from fastapi.responses import FileResponse
+
+
+
 
 app = FastAPI(title="Flashcards App v3", version="0.1.0")
 
@@ -35,8 +39,18 @@ async def on_startup() -> None:
 
 
 # --------------------------------------------------------------------
-@app.get("/", tags=["system"])
-async def root():
-    """Health-check & hello."""
-    return {"message": "Hello from Flashcards App v3 🚀"}
+@app.get("/", include_in_schema=False)
+async def serve_frontend():
+    """
+    Serve the Single-Page App entry point.
+    """
+    index_path = Path(__file__).parent.parent / "frontend" / "index.html"
+    return FileResponse(index_path)
+
+
+
+#--tbdeleted--|@app.get("/", tags=["system"])
+#--tbdeleted--|async def root():
+#--tbdeleted--|    """Health-check & hello."""
+#--tbdeleted--|    return {"message": "Hello from Flashcards App v3 🚀"}
 

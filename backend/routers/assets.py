@@ -1,4 +1,4 @@
-from fastapi import APIRouter, UploadFile, Form, Depends, HTTPException
+from fastapi import APIRouter, UploadFile, Form, Depends, HTTPException, Path as PathParam
 from mutagen import File as MutagenFile
 from sqlalchemy.ext.asyncio import AsyncSession
 from backend.database import get_session
@@ -24,6 +24,22 @@ class AssetRead(BaseModel):
     class Config:
         orm_mode = True
 
+
+@router.get(
+    "/{asset_id}",
+    response_model=AssetRead,
+    summary="Fetch a single asset by ID",
+)
+async def read_asset(
+    asset_id: int = PathParam(..., description="The ID of the asset to retrieve"),
+    session: AsyncSession = Depends(get_session),
+):
+    asset = await session.get(Asset, asset_id)
+    if not asset:
+        raise HTTPException(status_code=404, detail="Asset not found")
+    return asset
+
+        
 @router.post("", response_model=AssetRead)
 async def upload_asset(
     file: UploadFile,

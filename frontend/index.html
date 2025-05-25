@@ -10,9 +10,21 @@
   <header class="bg-white p-4 shadow text-xl font-bold text-center">
     Flashcards App v3
   </header>
-
-  <main class="flex-1 flex items-center justify-center">
-    <h1 class="text-3xl">Hello from the frontend 🎉</h1>
+  <main class="flex-1 flex flex-col items-center justify-start p-4 space-y-4">
+    <div class="flex space-x-2">
+      <input id="tagFilter" 
+             type="text" 
+             placeholder="Enter tag (e.g. uv)" 
+             class="border p-2 rounded" />
+      <button id="loadBtn" 
+              class="bg-blue-500 text-white px-4 py-2 rounded">
+        Load Cards
+      </button>
+    </div>
+    <div id="cardContainer" class="w-full max-w-md">
+      <!-- Card will render here -->
+    </div>
   </main>
+  <script type="module" src="/static/js/app.js"></script>
 </body>
 </html>
