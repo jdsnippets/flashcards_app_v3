@@ -14,8 +14,8 @@ zip -r "$OUTPUT_ZIP" \
   frontend \
   scripts \
   alembic \
+  static/uploads/2025 \
   pyproject.toml \
-  zippify_project_contents.sh \
   --exclude '**/__pycache__/*' '*.db' '*.sqlite3' '*.log' '*.zip' '*.lock' '.venv/*'
 
 echo "✅ Done. Snapshot saved as $OUTPUT_ZIP"

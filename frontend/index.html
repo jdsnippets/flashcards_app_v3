@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flashcards v3</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .perspective      { perspective: 1000px; }
+    .preserve-3d      { transform-style: preserve-3d; }
+    .backface-hidden  { backface-visibility: hidden; }
+  
+    .rotate-y-180     { transform: rotateY(180deg); }
+    .-rotate-y-180    { transform: rotateY(-180deg); }
+  </style>
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
   <header class="bg-white p-4 shadow text-xl font-bold text-center">
