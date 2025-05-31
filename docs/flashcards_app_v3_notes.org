@@ -4,7 +4,7 @@
 
 * misc notes
 ** jds: current status in chat...
--> # (set script_location to 'alembic' and use sqlite+aiosqlite:///flashcards.db)
+-> 
 
 ** chat
 *** flashcard project (v3)
@@ -12,7 +12,26 @@
 *** 
 
 
+** sqlite3
 
+*** quick status...
+
+# all-at-once
+   sqlite3 flashcards.db "SELECT * FROM assets;"; sqlite3 flashcards.db "SELECT * FROM card_sides;"; sqlite3 flashcards.db "SELECT * FROM card_tags;"; sqlite3 flashcards.db "SELECT * FROM cards;"; sqlite3 flashcards.db "SELECT * FROM reviews;"; sqlite3 flashcards.db "SELECT * FROM tags;"
+
+# one-by-one (alpha)
+   sqlite3 flashcards.db "SELECT * FROM assets;"
+   sqlite3 flashcards.db "SELECT * FROM card_sides;"
+   sqlite3 flashcards.db "SELECT * FROM card_tags;"
+   sqlite3 flashcards.db "SELECT * FROM cards;"
+   sqlite3 flashcards.db "SELECT * FROM reviews;"
+   sqlite3 flashcards.db "SELECT * FROM tags;"
+
+
+*** delete...
+  rm flashcards.db
+  alembic upgrade head
+  
 
 
 * getting started
@@ -188,6 +207,15 @@
 
 ----------
 
+new flashcard!
+Q: 
+A: 
+Tags(s): 
+
+new flashcard!
+Q: 
+A: 
+Tags(s): 
 
 new flashcard!
 Q: How do you sync your uv project dependencies to match your lockfile?
@@ -253,6 +281,32 @@ new flashcard!
 Q: How do you install Python 3.13.3 using uv?
 A: uv python install 3.13.3
 Tags(s): uv
+
+new flashcard!
+Q: cli/shell command tof ind and delete all "__bak*" files under the current dir
+A: find . -name "__bak*" -type f -delete
+Tags(s): shell
+
+new flashcard!
+Q: how do you see what has been modified but not yet staged in git?
+A: git diff
+Tags(s): git
+
+new flashcard!
+Q: 
+A: 
+Tags(s): 
+
+new flashcard!
+Q: 
+A: 
+Tags(s): 
+
+
+
+
+
+
 
 
 

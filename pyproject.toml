@@ -9,6 +9,7 @@ dependencies = [
     "alembic>=1.16.1",
     "fastapi>=0.115.12",
     "greenlet>=3.2.2",
+    "httpx>=0.28.1",
     "mutagen>=1.47.0",
     "pillow>=11.2.1",
     "python-multipart>=0.0.20",
