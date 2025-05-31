@@ -15,6 +15,7 @@ zip -r "$OUTPUT_ZIP" \
   scripts \
   alembic \
   static/uploads/2025 \
+  .gitignore \
   pyproject.toml \
   --exclude '**/__pycache__/*' '*.db' '*.sqlite3' '*.log' '*.zip' '*.lock' '.venv/*'
 

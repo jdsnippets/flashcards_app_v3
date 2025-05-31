@@ -4,12 +4,19 @@
 
 * misc notes
 ** jds: current status in chat...
--> 
+-> Why store both the text content and a file path
 
 ** chat
 *** flashcard project (v3)
 -> https://chatgpt.com/c/6832011f-bc04-8013-9fe3-7f1c3f033e8b
 *** 
+
+
+** etags
+
+  find . \( -path "./.venv" -o -path "./.venv/*" \) -prune -o \
+      \( -type f \( -name "*.py" -o -name "*.html" -o -name "*.css" \) -print \) \
+      | xargs etags
 
 
 ** sqlite3
@@ -239,7 +246,7 @@ Tags(s): uv
 
 new flashcard!
 Q: How do you set your Git username for this project to jdsnippets?
-A: git config user.name "jdsnippets"
+A: git config user.name 'jdsnippets'
 Tags(s): git
 
 new flashcard!
@@ -269,7 +276,7 @@ Tags(s): uv
 
 new flashcard!
 Q: How do you set your global Git username to neuroskipper?
-A: git config --global user.name "neuroskipper"
+A: git config --global user.name 'neuroskipper'
 Tags(s): git
 
 new flashcard!
@@ -283,14 +290,39 @@ A: uv python install 3.13.3
 Tags(s): uv
 
 new flashcard!
-Q: cli/shell command tof ind and delete all "__bak*" files under the current dir
-A: find . -name "__bak*" -type f -delete
+Q: cli/shell command to find and delete all '__bak*' files under the current dir
+A: find . -name '__bak*' -type f -delete
 Tags(s): shell
 
 new flashcard!
 Q: how do you see what has been modified but not yet staged in git?
 A: git diff
 Tags(s): git
+
+new flashcard!
+Q: sql (sqlite) syntax to update 'text' column with new content (table = assets, row id = 27)?
+A: UPDATE assets SET text = 'this is the new text' WHERE id = 27;
+Tags(s): sql
+
+new flashcard!
+Q: sqlite3 pretty print: display headers
+A: .header on
+Tags(s): sqlite
+
+new flashcard!
+Q: sqlite3 pretty print: neat columns
+A: .mode column
+Tags(s): sqlite
+
+new flashcard!
+Q: sqlite3 command to display a specific table's schema?
+A: .schema assets
+Tags(s): sqlite
+
+new flashcard!
+Q: sqlite3 command to display all tables' schemas?
+A: .tables
+Tags(s): sqlite
 
 new flashcard!
 Q: 

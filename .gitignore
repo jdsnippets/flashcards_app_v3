@@ -14,12 +14,13 @@ static/uploads/
 *.log
 *.lock
 *.zip
-*__bak
+*__bak*
 
 # editor/IDE
 .vscode/
 .idea/
 *~
+TAGS
 
 # OS
 .DS_Store

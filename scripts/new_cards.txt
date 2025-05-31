@@ -1,5 +1,99 @@
 new flashcard!
-Q: 
-A: 
-Tags(s): 
+Q: How do you sync your uv project dependencies to match your lockfile?
+A: uv sync
+Tags(s): uv
 
+new flashcard!
+Q: How do you create a virtual environment using Python 3.13.3 with uv?
+A: uv venv .venv --python 3.13.3
+Tags(s): uv
+
+new flashcard!
+Q: How do you install FastAPI and other backend dependencies using uv?
+A: uv add fastapi uvicorn pillow python-multipart sqlalchemy aiosqlite
+Tags(s): uv
+
+new flashcard!
+Q: How do you upgrade uv to the latest version?
+A: uv self update
+Tags(s): uv
+
+new flashcard!
+Q: How do you set your Git username for this project to jdsnippets?
+A: git config user.name 'jdsnippets'
+Tags(s): git
+
+new flashcard!
+Q: How do you run a FastAPI app with uvicorn and auto-reload enabled (using uv)?
+A: uv run uvicorn backend.main:app --reload --reload-exclude .venv
+Tags(s): uv
+
+new flashcard!
+Q: How do you install your local project in editable dev mode using uv?
+A: uv add --editable . --dev
+Tags(s): uv
+
+new flashcard!
+Q: How do you inspect the Git configuration for the current project?
+A: cat .git/config
+Tags(s): git
+
+new flashcard!
+Q: How do you initialize a new Python project with uv?
+A: uv init <project_name>
+Tags(s): uv
+
+new flashcard!
+Q: How do you activate a uv-created virtual environment?
+A: source .venv/bin/activate
+Tags(s): uv
+
+new flashcard!
+Q: How do you set your global Git username to neuroskipper?
+A: git config --global user.name 'neuroskipper'
+Tags(s): git
+
+new flashcard!
+Q: How do you lock your project's dependencies with uv for reproducibility?
+A: uv lock
+Tags(s): uv
+
+new flashcard!
+Q: How do you install Python 3.13.3 using uv?
+A: uv python install 3.13.3
+Tags(s): uv
+
+new flashcard!
+Q: cli/shell command to find and delete all '__bak*' files under the current dir
+A: find . -name '__bak*' -type f -delete
+Tags(s): shell
+
+new flashcard!
+Q: how do you see what has been modified but not yet staged in git?
+A: git diff
+Tags(s): git
+
+new flashcard!
+Q: sql (sqlite) syntax to update 'text' column with new content (table = assets, row id = 27)?
+A: UPDATE assets SET text = 'this is the new text' WHERE id = 27;
+Tags(s): sql
+
+new flashcard!
+Q: sqlite3 pretty print: display headers
+A: .header on
+Tags(s): sqlite
+
+new flashcard!
+Q: sqlite3 pretty print: neat columns
+A: .mode column
+Tags(s): sqlite
+
+new flashcard!
+Q: sqlite3 command to display a specific table's schema?
+A: .schema assets
+Tags(s): sqlite
+
+new flashcard!
+Q: sqlite3 command to display all tables' schemas?
+A: .tables
+Tags(s): sqlite

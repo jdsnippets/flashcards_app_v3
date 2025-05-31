@@ -6,66 +6,142 @@
   <title>Flashcards v3</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* 3-D flip helpers */
     .perspective      { perspective: 1000px; }
     .preserve-3d      { transform-style: preserve-3d; }
     .backface-hidden  { backface-visibility: hidden; }
-  
+
+    /* custom rotate-Y utilities */
     .rotate-y-180     { transform: rotateY(180deg); }
     .-rotate-y-180    { transform: rotateY(-180deg); }
   </style>
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+  <!-- Header -->
   <header class="bg-white p-4 shadow text-xl font-bold text-center">
     Flashcards App v3
   </header>
 
-  <main class="flex-1 flex flex-col items-center justify-start p-4 space-y-8 w-full max-w-2xl mx-auto">
-
-    <!-- Load Cards by Tag -->
-    <section class="w-full space-y-2">
-      <h2 class="text-lg font-semibold">Practice</h2>
+  <main class="flex-1 flex flex-col items-center justify-start p-4 space-y-8">
+    <!-- 1) Load Cards Section -->
+    <div class="w-full max-w-2xl flex flex-col space-y-4">
       <div class="flex space-x-2">
-        <input id="tagFilter" 
-               type="text" 
-               placeholder="Enter tag (e.g. uv)" 
-               class="flex-1 border p-2 rounded" />
-        <button id="loadBtn" 
+        <input id="tagFilter"
+               type="text"
+               placeholder="Enter tag (e.g. uv)"
+               class="flex-1 border p-2 rounded"
+        />
+        <button id="loadBtn"
                 class="bg-blue-500 text-white px-4 py-2 rounded">
           Load Cards
         </button>
       </div>
-      <div id="cardContainer" class="w-full mt-4">
-        <!-- Flashcard will render here -->
+      <!-- Optional: a checkbox to toggle due_only mode -->
+      <div class="flex items-center space-x-2">
+        <input id="dueOnlyCheckbox" type="checkbox" class="h-4 w-4 text-blue-600" />
+        <label for="dueOnlyCheckbox" class="text-sm">Show only due cards</label>
       </div>
-    </section>
+    </div>
 
-    <hr class="w-full border-t border-gray-300" />
+    <!-- 2) Card Container -->
+    <div id="cardContainer" class="w-full max-w-2xl flex justify-center">
+      <!-- Cards will render here -->
+    </div>
 
-    <!-- Create New Card -->
-    <section class="w-full space-y-2">
-      <h2 class="text-lg font-semibold">Create a New Card</h2>
-      <form id="createCardForm" class="space-y-4 bg-white p-4 rounded shadow">
-        <div>
-          <label for="frontText" class="block font-medium">Front (text):</label>
-          <textarea id="frontText" class="w-full p-2 border rounded" rows="2"></textarea>
+    <!-- 3) Create New Card Form -->
+    <section class="w-full max-w-2xl bg-white p-6 rounded shadow space-y-6">
+      <h2 class="text-2xl font-semibold text-center">Create a New Flashcard</h2>
+      <form id="createCardForm" class="space-y-6">
+        <!-- FRONT SIDE -->
+        <div class="space-y-2">
+          <label class="block text-lg font-medium">Front Side</label>
+          <div class="flex items-center space-x-4">
+            <label class="flex items-center space-x-1">
+              <input type="radio" name="frontType" value="text" checked class="text-blue-600" />
+              <span>Text</span>
+            </label>
+            <label class="flex items-center space-x-1">
+              <input type="radio" name="frontType" value="image" class="text-blue-600" />
+              <span>Image</span>
+            </label>
+            <label class="flex items-center space-x-1">
+              <input type="radio" name="frontType" value="audio" class="text-blue-600" />
+              <span>Audio</span>
+            </label>
+          </div>
+          <!-- Textarea for text -->
+          <textarea id="frontText"
+                    class="w-full border p-2 rounded"
+                    placeholder="Enter front text..."
+                    rows="3"
+          ></textarea>
+          <!-- File input for image/audio (hidden by default) -->
+          <input id="frontFile"
+                 type="file"
+                 accept="image/*,audio/*"
+                 class="hidden border p-1 rounded w-full"
+          />
         </div>
-        <div>
-          <label for="backText" class="block font-medium">Back (text):</label>
-          <textarea id="backText" class="w-full p-2 border rounded" rows="2"></textarea>
+
+        <!-- BACK SIDE -->
+        <div class="space-y-2">
+          <label class="block text-lg font-medium">Back Side</label>
+          <div class="flex items-center space-x-4">
+            <label class="flex items-center space-x-1">
+              <input type="radio" name="backType" value="text" checked class="text-blue-600" />
+              <span>Text</span>
+            </label>
+            <label class="flex items-center space-x-1">
+              <input type="radio" name="backType" value="image" class="text-blue-600" />
+              <span>Image</span>
+            </label>
+            <label class="flex items-center space-x-1">
+              <input type="radio" name="backType" value="audio" class="text-blue-600" />
+              <span>Audio</span>
+            </label>
+          </div>
+          <!-- Textarea for text -->
+          <textarea id="backText"
+                    class="w-full border p-2 rounded"
+                    placeholder="Enter back text..."
+                    rows="3"
+          ></textarea>
+          <!-- File input for image/audio (hidden by default) -->
+          <input id="backFile"
+                 type="file"
+                 accept="image/*,audio/*"
+                 class="hidden border p-1 rounded w-full"
+          />
         </div>
-        <div>
-          <label for="tagsInput" class="block font-medium">Tags (comma-separated):</label>
-          <input id="tagsInput" type="text" class="w-full p-2 border rounded" placeholder="e.g. uv, setup" />
+
+        <!-- TAGS -->
+        <div class="space-y-1">
+          <label for="tagsInput" class="block text-lg font-medium">Tags (comma-separated)</label>
+          <input id="tagsInput"
+                 type="text"
+                 class="w-full border p-2 rounded"
+                 placeholder="e.g. uv, git"
+          />
         </div>
-        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">
-          Create Card
-        </button>
-        <p id="createMsg" class="text-sm text-green-600 hidden">✅ Card created!</p>
+
+        <!-- SUBMIT BUTTON -->
+        <div class="text-center">
+          <button type="submit"
+                  class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 transition"
+          >
+            Create Card
+          </button>
+        </div>
+
+        <!-- SUCCESS MESSAGE -->
+        <p id="createMsg" class="text-green-600 text-center hidden">
+          ✅ Card created successfully!
+        </p>
       </form>
     </section>
-
   </main>
 
+  <!-- JS Entry Point -->
   <script type="module" src="/static/js/app.js"></script>
 </body>
 </html>
