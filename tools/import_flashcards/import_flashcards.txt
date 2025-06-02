@@ -2,109 +2,155 @@ new flashcard!
 Q: How do you sync your uv project dependencies to match your lockfile?
 A: uv sync
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: How do you create a virtual environment using Python 3.13.3 with uv?
 A: uv venv .venv --python 3.13.3
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: How do you install FastAPI and other backend dependencies using uv?
 A: uv add fastapi uvicorn pillow python-multipart sqlalchemy aiosqlite
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: How do you upgrade uv to the latest version?
 A: uv self update
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: How do you set your Git username for this project to jdsnippets?
 A: git config user.name 'jdsnippets'
 Tag(s): git
+New card: no
 
 new flashcard!
 Q: How do you run a FastAPI app with uvicorn and auto-reload enabled (using uv)?
 A: uv run uvicorn backend.main:app --reload --reload-exclude .venv
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: How do you install your local project in editable dev mode using uv?
 A: uv add --editable . --dev
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: How do you inspect the Git configuration for the current project?
 A: cat .git/config
 Tag(s): git
+New card: no
 
 new flashcard!
 Q: How do you initialize a new Python project with uv?
 A: uv init <project_name>
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: How do you activate a uv-created virtual environment?
 A: source .venv/bin/activate
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: How do you set your global Git username to neuroskipper?
 A: git config --global user.name 'neuroskipper'
 Tag(s): git
+New card: no
 
 new flashcard!
 Q: How do you lock your project's dependencies with uv for reproducibility?
 A: uv lock
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: How do you install Python 3.13.3 using uv?
 A: uv python install 3.13.3
 Tag(s): uv
+New card: no
 
 new flashcard!
 Q: cli/shell command to find and delete all '__bak*' files under the current dir
 A: find . -name '__bak*' -type f -delete
 Tag(s): shell
+New card: no
 
 new flashcard!
 Q: how do you see what has been modified but not yet staged in git?
 A: git diff
 Tag(s): git
+New card: no
 
 new flashcard!
 Q: sql (sqlite) syntax to update 'text' column with new content (table = assets, row id = 27)?
 A: UPDATE assets SET text = 'this is the new text' WHERE id = 27;
 Tag(s): sql
+New card: no
 
 new flashcard!
 Q: sqlite3 pretty print: display headers
 A: .header on
 Tag(s): sqlite
+New card: no
 
 new flashcard!
 Q: sqlite3 pretty print: neat columns
 A: .mode column
 Tag(s): sqlite
+New card: no
 
 new flashcard!
 Q: sqlite3 command to display a specific table's schema?
 A: .schema assets
 Tag(s): sqlite
+New card: no
 
 new flashcard!
 Q: sqlite3 command to display all tables' schemas?
 A: .tables
 Tag(s): sqlite
+New card: no
 
 new flashcard!
 Q: What is an agent?
 A: Agents are models using tools in a loop (a system prompt plus a bundle of tools running in a loop)
 Tag(s): llm
+New card: no
 
 new flashcard!
 Q: Upgrade the database schema to the latest available version
 A: alembic upgrade head
 Tag(s): alembic, sqlalchemy
+New card: no
+
+new flashcard!
+Q: Consuelo
+A: /media/consue_joven.jpeg
+Tag(s): familia sanchez
+New card: no
+
+new flashcard!
+Q: doña gabriela
+A: /media/dona_gabriela__papa.jpeg
+Tag(s): familia sanchez
+New card: no
+
+new flashcard!
+Q: 
+A: 
+Tag(s): 
+New card: no
+
+new flashcard!
+Q: 
+A: 
+Tag(s): 
+New card: no
 

@@ -4,7 +4,7 @@
 
 * misc notes
 ** jds: current status in chat...
--> Why store both the text content and a file path
+-> Flashcard Bulk Import/Export – Design Enhancement Proposal
 
 ** chat
 *** flashcard project (v3)
@@ -21,10 +21,11 @@
 
 ** sqlite3
 
-*** quick status...
+*** quick status of all dbase tables...
 
 # all-at-once
-   sqlite3 flashcards.db "SELECT * FROM assets;"; sqlite3 flashcards.db "SELECT * FROM card_sides;"; sqlite3 flashcards.db "SELECT * FROM card_tags;"; sqlite3 flashcards.db "SELECT * FROM cards;"; sqlite3 flashcards.db "SELECT * FROM reviews;"; sqlite3 flashcards.db "SELECT * FROM tags;"
+   echo -e "\n== SELECT * FROM assets ==\n"; sqlite3 flashcards.db "SELECT * FROM assets;"; echo -e "\n== SELECT * FROM card_sides ==\n"; sqlite3 flashcards.db "SELECT * FROM card_sides;"; echo -e "\n== SELECT * FROM card_tags ==\n"; sqlite3 flashcards.db "SELECT * FROM card_tags;"; echo -e "\n== SELECT * FROM cards ==\n"; sqlite3 flashcards.db "SELECT * FROM cards;"; echo -e "\n== SELECT * FROM reviews ==\n"; sqlite3 flashcards.db "SELECT * FROM reviews;"; echo -e "\n== SELECT * FROM tags ==\n"; sqlite3 flashcards.db "SELECT * FROM tags;"; 
+
 
 # one-by-one (alpha)
    sqlite3 flashcards.db "SELECT * FROM assets;"

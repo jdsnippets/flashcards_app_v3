@@ -22,7 +22,7 @@ def parse_flashcards(file_path):
             try:
                 question = lines[i + 1].removeprefix("Q:").strip()
                 answer   = lines[i + 2].removeprefix("A:").strip()
-                tags_raw = lines[i + 3].removeprefix("Tags(s):").strip()
+                tags_raw = lines[i + 3].removeprefix("Tag(s):").strip()
                 tags     = [tag.strip() for tag in tags_raw.split(",") if tag.strip()]
                 cards.append((question, answer, tags))
                 i += 4
